@@ -4,11 +4,13 @@ import java.util.Arrays;
 
 public class RestaurantSystem {
 
-	protected final static int ALCH = 0;
-	protected final static int DATE = 1;
-	protected final static int AC = 2;
-	protected final static int SMOKE = 3;
-	protected final static int VEGAN = 4;
+	//protected final static int ALCH = 0;
+	//protected final static int DATE = 1;
+	//protected final static int AC = 2;
+	//protected final static int SMOKE = 3;
+	//protected final static int VEGAN = 4;
+	
+	protected enum TAG {ALCH,DATE,AC,SMOKE,VEGAN};
 	
 	private Functor[] menuFuncs = new Functor[6];
 	protected static ArrayList<Restaurant> allRes = new ArrayList<Restaurant>(); 
@@ -22,10 +24,10 @@ public class RestaurantSystem {
 		menuFuncs[3] = new ShowResDetails();
 		menuFuncs[4] = new CreatePoll();
 		menuFuncs[5] = new AddNewUser();
-		systemActivate();
+		//systemActivate();
 	}
 	
-	private void systemActivate(){
+	public void systemActivate(){
 		
 		int choice = 0;
 		while(choice!=-1){
@@ -75,14 +77,8 @@ public class RestaurantSystem {
 
 	public static void activatePoll() {
 		
-		
-		System.out.print("Enter the participants in the poll (seperate by a comma), available users: [");
-		for(int i=0; i<allUser.size()-1; i++){
-			System.out.print(allUser.get(i).userId+", ");
-		}
-		if(RestaurantSystem.allUser.size()!=0)
-			System.out.print(allUser.get(allUser.size()-1).userId);
-		System.out.println("]");
+		System.out.print("Enter the participants in the poll (seperate by a comma), available users: ");
+		printHelper(allUser.toArray());
 		
 		ArrayList<String> pollNames = new ArrayList<String>();
 		pollNames.addAll(Arrays.asList(FirstProject.myScanner.nextLine().split(",")));
@@ -94,10 +90,10 @@ public class RestaurantSystem {
 		
 		ArrayList<User> pollUsers = new ArrayList<User>();
 		
-		for(String str: pollNames)
-			for(User usr : allUser)
-				if(usr.userId.equals(str))
-					pollUsers.add(usr);
+		for(User usr : allUser)
+			if(pollNames.contains(usr.userId))
+				pollUsers.add(usr);
+		
 		
 		findMatchingRes(pollUsers);
 	}
@@ -124,11 +120,11 @@ public class RestaurantSystem {
 		System.out.print("The matching restaurants are: ");
 		System.out.println(Arrays.toString(matchingResData.toArray()));
 		
-		finalizeOrder(matchingResNames, pollUsers.size());
+		findWinner(matchingResNames, pollUsers.size());
 		
 	}
 
-	private static void finalizeOrder(ArrayList<String> matchingRes, int pollUsersSize) {
+	private static void findWinner(ArrayList<String> matchingRes, int pollUsersSize) {
 		
 		System.out.println("The winner restaurant is:");
 		String winRes = FirstProject.myScanner.nextLine();
@@ -151,24 +147,29 @@ public class RestaurantSystem {
 
 	private static boolean allMatch(User usr, Restaurant res) {
 		
-		return res.resTags[ALCH] == usr.userTags[ALCH] &&
-					res.resTags[DATE] == usr.userTags[DATE] &&
-						res.resTags[AC] == usr.userTags[AC] &&
-							res.resTags[SMOKE] == usr.userTags[SMOKE] &&
-								res.resTags[VEGAN] == usr.userTags[VEGAN];
-				
-		
+		return res.tags[TAG.ALCH.ordinal()] == usr.tags[TAG.ALCH.ordinal()] &&
+					res.tags[TAG.DATE.ordinal()] == usr.tags[TAG.DATE.ordinal()] &&
+						res.tags[TAG.AC.ordinal()] == usr.tags[TAG.AC.ordinal()] &&
+							res.tags[TAG.SMOKE.ordinal()] == usr.tags[TAG.SMOKE.ordinal()] &&
+								res.tags[TAG.VEGAN.ordinal()] == usr.tags[TAG.VEGAN.ordinal()];
 	}
 
 	public static void printResNames() {
 		
-		System.out.print("Restaurant Names: [");
-		for(int i=0; i<RestaurantSystem.allRes.size()-1; i++){
-			System.out.print(RestaurantSystem.allRes.get(i).resName+", ");
+		System.out.print("Restaurants Names: ");
+		printHelper(allRes.toArray());
+	}
+	
+	public static void printHelper(Object[] list){
+		
+		System.out.print("[");
+		for(int i=0; i<list.length-1; i++){
+			System.out.print(((SystemNode)list[i]).getStringData()+", ");
 		}
-		if(RestaurantSystem.allRes.size()!=0)
-			System.out.print(RestaurantSystem.allRes.get(RestaurantSystem.allRes.size()-1).resName);
+		if(list.length!=0)
+			System.out.print(((SystemNode)list[list.length-1]).getStringData());
 		System.out.println("]");
+		
 	}
 	
 }

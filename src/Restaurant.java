@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class Restaurant {
+public class Restaurant extends SystemNode {
 	
 	protected String resType;
 	protected String resId;
@@ -12,7 +12,6 @@ public class Restaurant {
 	protected String resAddr;
 	protected double avgTime;
 	protected ArrayList<String> resReviews = new ArrayList<String>();
-	protected boolean[] resTags = new boolean[5];
 	protected int grade;
 	
 	public Restaurant(){
@@ -21,12 +20,9 @@ public class Restaurant {
 	
 	
 	private void createNewRestaurant() throws InvalidParameterException{
-	
-		//Scanner scanRes = new Scanner(System.in);
 		
 		System.out.println("Enter the restaurant id");
 		this.resId = FirstProject.myScanner.nextLine();
-		
 		
 		System.out.println("Enter the restaurant name (Up to 20 chars)");
 		String tmpName = FirstProject.myScanner.nextLine();
@@ -53,19 +49,19 @@ public class Restaurant {
 		FirstProject.myScanner.nextLine();
 		
 		System.out.println("Is the restaurant alcoholic(y/n)?");
-		resTags[RestaurantSystem.ALCH] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAG.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant dateable(y/n)?");
-		resTags[RestaurantSystem.DATE] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAG.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant ac(y/n)?");
-		resTags[RestaurantSystem.AC] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAG.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant smoking(y/n)?");
-		resTags[RestaurantSystem.SMOKE] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAG.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant vegeterian(y/n)?");
-		resTags[RestaurantSystem.VEGAN] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAG.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		FirstProject.myScanner.nextLine();
 		
@@ -102,11 +98,11 @@ public class Restaurant {
 		System.out.println("Restaurant description: "+this.resDesc);
 		System.out.println("Restaurant address: "+this.resAddr);
 		System.out.println("Restaurant delivery time: "+this.avgTime);
-		System.out.println("Restaurant is alcoholic: "+((resTags[RestaurantSystem.ALCH]) ? "Yes" : "No"));
-		System.out.println("Restaurant is datable: "+((resTags[RestaurantSystem.DATE]) ? "Yes" : "No"));
-		System.out.println("Restaurant is ac: "+((resTags[RestaurantSystem.AC]) ? "Yes" : "No"));
-		System.out.println("Restaurant is smoking: "+((resTags[RestaurantSystem.SMOKE]) ? "Yes" : "No"));
-		System.out.println("Restaurant is vegeterian: "+((resTags[RestaurantSystem.VEGAN]) ? "Yes" : "No"));
+		System.out.println("Restaurant is alcoholic: "+((tags[RestaurantSystem.TAG.ALCH.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is datable: "+((tags[RestaurantSystem.TAG.DATE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is ac: "+((tags[RestaurantSystem.TAG.AC.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is smoking: "+((tags[RestaurantSystem.TAG.SMOKE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is vegeterian: "+((tags[RestaurantSystem.TAG.VEGAN.ordinal()]) ? "Yes" : "No"));
 		System.out.println("Retaurant reviews:");
 		System.out.println(Arrays.toString(this.resReviews.toArray()));
 		
@@ -114,6 +110,13 @@ public class Restaurant {
 	
 	public void addToGrade(int toAdd){
 		this.grade+=toAdd;
+	}
+
+
+	@Override
+	public String getStringData() {
+		
+		return resName;
 	}
 	
 	

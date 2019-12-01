@@ -1,3 +1,4 @@
+@SuppressWarnings("unused")
 
 public class Address {
 
@@ -7,9 +8,8 @@ public class Address {
 	private int postalCode;
 	
 	public Address(){
-		
+	
+		//TODO:
 	}
-	
-	
 	
 }

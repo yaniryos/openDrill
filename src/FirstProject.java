@@ -7,7 +7,7 @@ public class FirstProject {
 	public static void main(String[] args){
 		
 		RestaurantSystem sys = new RestaurantSystem();
-		
+		sys.systemActivate();
 	}
 	
 
