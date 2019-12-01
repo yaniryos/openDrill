@@ -3,14 +3,8 @@ import java.util.Arrays;
 
 
 public class RestaurantSystem {
-
-	//protected final static int ALCH = 0;
-	//protected final static int DATE = 1;
-	//protected final static int AC = 2;
-	//protected final static int SMOKE = 3;
-	//protected final static int VEGAN = 4;
 	
-	protected enum TAG {ALCH,DATE,AC,SMOKE,VEGAN};
+	protected enum TAGS {ALCH,DATE,AC,SMOKE,VEGAN};
 	
 	private Functor[] menuFuncs = new Functor[6];
 	protected static ArrayList<Restaurant> allRes = new ArrayList<Restaurant>(); 
@@ -147,11 +141,11 @@ public class RestaurantSystem {
 
 	private static boolean allMatch(User usr, Restaurant res) {
 		
-		return res.tags[TAG.ALCH.ordinal()] == usr.tags[TAG.ALCH.ordinal()] &&
-					res.tags[TAG.DATE.ordinal()] == usr.tags[TAG.DATE.ordinal()] &&
-						res.tags[TAG.AC.ordinal()] == usr.tags[TAG.AC.ordinal()] &&
-							res.tags[TAG.SMOKE.ordinal()] == usr.tags[TAG.SMOKE.ordinal()] &&
-								res.tags[TAG.VEGAN.ordinal()] == usr.tags[TAG.VEGAN.ordinal()];
+		return res.tags[TAGS.ALCH.ordinal()] == usr.tags[TAGS.ALCH.ordinal()] &&
+					res.tags[TAGS.DATE.ordinal()] == usr.tags[TAGS.DATE.ordinal()] &&
+						res.tags[TAGS.AC.ordinal()] == usr.tags[TAGS.AC.ordinal()] &&
+							res.tags[TAGS.SMOKE.ordinal()] == usr.tags[TAGS.SMOKE.ordinal()] &&
+								res.tags[TAGS.VEGAN.ordinal()] == usr.tags[TAGS.VEGAN.ordinal()];
 	}
 
 	public static void printResNames() {

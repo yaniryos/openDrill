@@ -16,19 +16,19 @@ public class User extends SystemNode {
 		this.userId = FirstProject.myScanner.nextLine();
 		
 		System.out.println("Is the restaurant alcoholic(y/n)?");
-		tags[RestaurantSystem.TAG.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant dateable(y/n)?");
-		tags[RestaurantSystem.TAG.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant ac(y/n)?");
-		tags[RestaurantSystem.TAG.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant smoking(y/n)?");
-		tags[RestaurantSystem.TAG.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant vegeterian(y/n)?");
-		tags[RestaurantSystem.TAG.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		FirstProject.myScanner.nextLine();
 		

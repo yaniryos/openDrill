@@ -48,19 +48,19 @@ public class Restaurant extends SystemNode {
 		FirstProject.myScanner.nextLine();
 		
 		System.out.println("Is the restaurant alcoholic(y/n)?");
-		tags[RestaurantSystem.TAG.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant dateable(y/n)?");
-		tags[RestaurantSystem.TAG.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant ac(y/n)?");
-		tags[RestaurantSystem.TAG.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant smoking(y/n)?");
-		tags[RestaurantSystem.TAG.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		System.out.println("Is the restaurant vegeterian(y/n)?");
-		tags[RestaurantSystem.TAG.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		tags[RestaurantSystem.TAGS.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
 		
 		FirstProject.myScanner.nextLine();
 		
@@ -97,11 +97,11 @@ public class Restaurant extends SystemNode {
 		System.out.println("Restaurant description: "+this.resDesc);
 		System.out.println("Restaurant address: "+this.resAddr);
 		System.out.println("Restaurant delivery time: "+this.avgTime);
-		System.out.println("Restaurant is alcoholic: "+((tags[RestaurantSystem.TAG.ALCH.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is datable: "+((tags[RestaurantSystem.TAG.DATE.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is ac: "+((tags[RestaurantSystem.TAG.AC.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is smoking: "+((tags[RestaurantSystem.TAG.SMOKE.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is vegeterian: "+((tags[RestaurantSystem.TAG.VEGAN.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is alcoholic: "+((tags[RestaurantSystem.TAGS.ALCH.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is datable: "+((tags[RestaurantSystem.TAGS.DATE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is ac: "+((tags[RestaurantSystem.TAGS.AC.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is smoking: "+((tags[RestaurantSystem.TAGS.SMOKE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is vegeterian: "+((tags[RestaurantSystem.TAGS.VEGAN.ordinal()]) ? "Yes" : "No"));
 		System.out.println("Retaurant reviews:");
 		System.out.println(Arrays.toString(this.resReviews.toArray()));
 		
