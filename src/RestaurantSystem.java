@@ -24,7 +24,7 @@ public class RestaurantSystem {
 		menuFuncs[3] = new ShowResDetails();
 		menuFuncs[4] = new CreatePoll();
 		menuFuncs[5] = new AddNewUser();
-		//systemActivate();
+		
 	}
 	
 	public void systemActivate(){
@@ -120,11 +120,11 @@ public class RestaurantSystem {
 		System.out.print("The matching restaurants are: ");
 		System.out.println(Arrays.toString(matchingResData.toArray()));
 		
-		findWinner(matchingResNames, pollUsers.size());
+		getWinner(matchingResNames, pollUsers.size());
 		
 	}
 
-	private static void findWinner(ArrayList<String> matchingRes, int pollUsersSize) {
+	private static void getWinner(ArrayList<String> matchingRes, int pollUsersSize) {
 		
 		System.out.println("The winner restaurant is:");
 		String winRes = FirstProject.myScanner.nextLine();

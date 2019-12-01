@@ -16,8 +16,7 @@ public class Restaurant extends SystemNode {
 	
 	public Restaurant(){
 		createNewRestaurant();
-	}
-	
+	}	
 	
 	private void createNewRestaurant() throws InvalidParameterException{
 		
