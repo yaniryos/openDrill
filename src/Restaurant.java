@@ -2,8 +2,7 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
-public class Restaurant extends SystemNode {
+public class Restaurant extends Utils {
 	
 	protected String resType;
 	protected String resId;
@@ -11,80 +10,57 @@ public class Restaurant extends SystemNode {
 	protected String resDesc;
 	protected String resAddr;
 	protected double avgTime;
+	protected int resGrade;
 	protected ArrayList<String> resReviews = new ArrayList<String>();
-	protected int grade;
 	
 	public Restaurant(){
+		
 		createNewRestaurant();
 	}	
 	
 	private void createNewRestaurant() throws InvalidParameterException{
 		
 		System.out.println("Enter the restaurant id");
-		this.resId = FirstProject.myScanner.nextLine();
+		this.resId = MyScanner.scanner.nextLine();
 		
-		System.out.println("Enter the restaurant name (Up to 20 chars)");
-		String tmpName = FirstProject.myScanner.nextLine();
-		if(tmpName.length()>20){
-			FirstProject.myScanner.close();
-			throw new InvalidParameterException();
-		}
+		System.out.println("Enter the restaurant name (Up to "+maxResNameLength+" chars)");
+		String tmpName = MyScanner.scanner.nextLine();
+		checkIfStringValidLength(tmpName, maxResNameLength);
 		this.resName = tmpName;
 		
-		System.out.println("Enter the restaurant description (Up to 100 chars)");
-		String tmpDesc = FirstProject.myScanner.nextLine();
-		if(tmpDesc.length()>100){
-			FirstProject.myScanner.close();
-			throw new InvalidParameterException();
-		}
+		System.out.println("Enter the restaurant description (Up to "+maxResDescLength+" chars)");
+		String tmpDesc = MyScanner.scanner.nextLine();
+		checkIfStringValidLength(tmpDesc, maxResDescLength);
 		this.resDesc = tmpDesc;
 		
 		System.out.println("Enter the restaurant address");
-		this.resAddr = FirstProject.myScanner.nextLine();
+		this.resAddr = MyScanner.scanner.nextLine();
 		
 		System.out.println("Enter the restaurant delivery time");
-		this.avgTime = FirstProject.myScanner.nextDouble();
+		this.avgTime = MyScanner.scanner.nextDouble();
 		
-		FirstProject.myScanner.nextLine();
+		MyScanner.scanner.nextLine();
 		
-		System.out.println("Is the restaurant alcoholic(y/n)?");
-		tags[RestaurantSystem.TAGS.ALCH.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
+		getAndSetAllPrefrences();
 		
-		System.out.println("Is the restaurant dateable(y/n)?");
-		tags[RestaurantSystem.TAGS.DATE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
-		
-		System.out.println("Is the restaurant ac(y/n)?");
-		tags[RestaurantSystem.TAGS.AC.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
-		
-		System.out.println("Is the restaurant smoking(y/n)?");
-		tags[RestaurantSystem.TAGS.SMOKE.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
-		
-		System.out.println("Is the restaurant vegeterian(y/n)?");
-		tags[RestaurantSystem.TAGS.VEGAN.ordinal()] = FirstProject.myScanner.next().charAt(0)=='y' ? true : false;
-		
-		FirstProject.myScanner.nextLine();
+		MyScanner.scanner.nextLine();
 		
 		System.out.println("Enter the restaurant type (barRestaurant/TA) or any other");
-		this.resType = FirstProject.myScanner.nextLine();
+		this.resType = MyScanner.scanner.nextLine();
 		
-		this.grade = 0;
+		this.resGrade = initialResGrade;
 		
 		System.out.println("Restaurant was added");
-		
 	}
 
 
 	public void addReviewToRes() {
 		
-		System.out.println("Enter the review (Up to 500 chars)");
-		String tmpReview = FirstProject.myScanner.nextLine();
-		if(tmpReview.length()>500){
-			FirstProject.myScanner.close();
-			throw new InvalidParameterException();
-		}
+		System.out.println("Enter the review (Up to "+maxResReviewLength+" chars)");
+		String tmpReview = MyScanner.scanner.nextLine();
+		checkIfStringValidLength(tmpReview, maxResReviewLength);
 		this.resReviews.add(tmpReview);
 		System.out.println("Thank you for your review");
-		
 	}
 
 
@@ -97,18 +73,18 @@ public class Restaurant extends SystemNode {
 		System.out.println("Restaurant description: "+this.resDesc);
 		System.out.println("Restaurant address: "+this.resAddr);
 		System.out.println("Restaurant delivery time: "+this.avgTime);
-		System.out.println("Restaurant is alcoholic: "+((tags[RestaurantSystem.TAGS.ALCH.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is datable: "+((tags[RestaurantSystem.TAGS.DATE.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is ac: "+((tags[RestaurantSystem.TAGS.AC.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is smoking: "+((tags[RestaurantSystem.TAGS.SMOKE.ordinal()]) ? "Yes" : "No"));
-		System.out.println("Restaurant is vegeterian: "+((tags[RestaurantSystem.TAGS.VEGAN.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is alcoholic: "+((prefrences[Utils.TAGS.ALCH.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is datable: "+((prefrences[Utils.TAGS.DATE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is ac: "+((prefrences[Utils.TAGS.AC.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is smoking: "+((prefrences[Utils.TAGS.SMOKE.ordinal()]) ? "Yes" : "No"));
+		System.out.println("Restaurant is vegeterian: "+((prefrences[Utils.TAGS.VEGET.ordinal()]) ? "Yes" : "No"));
 		System.out.println("Retaurant reviews:");
 		System.out.println(Arrays.toString(this.resReviews.toArray()));
-		
 	}
 	
-	public void addToGrade(int toAdd){
-		this.grade+=toAdd;
+	public void addToGrade(int gradeToAdd){
+		
+		this.resGrade+=gradeToAdd;
 	}
 
 
@@ -117,6 +93,4 @@ public class Restaurant extends SystemNode {
 		
 		return resName;
 	}
-	
-	
 }

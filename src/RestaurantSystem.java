@@ -1,16 +1,12 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class RestaurantSystem {
-	
-	protected enum TAGS {ALCH,DATE,AC,SMOKE,VEGAN};
 	
 	private Functor[] menuFuncs = new Functor[6];
 	protected static ArrayList<Restaurant> allRes = new ArrayList<Restaurant>(); 
 	protected static ArrayList<User> allUser = new ArrayList<User>();
 	
-	public RestaurantSystem(){
+	public RestaurantSystem() {
 		
 		menuFuncs[0] = new PrintResNames();
 		menuFuncs[1] = new AddNewRes();
@@ -18,152 +14,40 @@ public class RestaurantSystem {
 		menuFuncs[3] = new ShowResDetails();
 		menuFuncs[4] = new CreatePoll();
 		menuFuncs[5] = new AddNewUser();
-		
 	}
 	
-	public void systemActivate(){
+	public void systemActivate() {
 		
-		int choice = 0;
-		while(choice!=-1){
-			
+		int choice = Utils.initialMenuChoice;
+		while (choice != Utils.exitMenu) {
 			System.out.println("Welcome to the restaurants system!");
-			System.out.println("Press 1 to print all the resyaurant names");
-			System.out.println("Press 2 to add a new restaurant");
-			System.out.println("Press 3 to write a review for a restaurant");
-			System.out.println("Press 4 to get s specific restaurant's details");
-			System.out.println("Press 5 to create a poll");
-			System.out.println("Press 6 to add a user");
-			System.out.println("Press -1 to exit");
-		
-			choice = Integer.parseInt(FirstProject.myScanner.nextLine());
-			if(choice!=-1)
+			printMenuOption(Utils.menuTags.PRINT_ALL_RES.ordinal());
+			printMenuOption(Utils.menuTags.ADD_RES.ordinal());
+			printMenuOption(Utils.menuTags.ADD_REV.ordinal());
+			printMenuOption(Utils.menuTags.RES_DETAILS.ordinal());
+			printMenuOption(Utils.menuTags.CREATE_POLL.ordinal());
+			printMenuOption(Utils.menuTags.ADD_USER.ordinal());
+			System.out.println("Press "+Utils.exitMenu+" to exit");
+			
+			choice = Integer.parseInt(MyScanner.scanner.nextLine());
+			
+			if (choice != Utils.exitMenu)
 				activateMenuChoice(choice);
 			
 		}
-		FirstProject.myScanner.close();
+		
+		MyScanner.scanner.close();
 	}
 	
+	private void printMenuOption(int optionIndex) {
+		
+		System.out.println("Press "+optionIndex+Utils.menuOptions[optionIndex]);
+	}
 	
 	private void activateMenuChoice(int choice){
-		menuFuncs[--choice].execute();	
+		
+		menuFuncs[choice - 1].execute();	
 		System.out.println();
-	}
-	
-	public static void addReview(){
-		
-		System.out.println("Enter the restaurant id");
-		String tmpId = FirstProject.myScanner.nextLine();
-		
-		for(Restaurant res : allRes)
-			if(res.resId.equals(tmpId))
-				res.addReviewToRes();
-	}
-
-	public static void showDetails() {
-		
-		System.out.println("Enter the restaurant id");
-		String tmpId = FirstProject.myScanner.nextLine();
-		
-		for(Restaurant res : allRes)
-			if(res.resId.equals(tmpId))
-				res.showDetailsOfRes();
-	}
-
-	public static void activatePoll() {
-		
-		System.out.print("Enter the participants in the poll (seperate by a comma), available users: ");
-		printHelper(allUser.toArray());
-		
-		ArrayList<String> pollNames = new ArrayList<String>();
-		pollNames.addAll(Arrays.asList(FirstProject.myScanner.nextLine().split(",")));
-		 
-		findUsers(pollNames);
-	}
-
-	private static void findUsers(ArrayList<String> pollNames) {
-		
-		ArrayList<User> pollUsers = new ArrayList<User>();
-		
-		for(User usr : allUser)
-			if(pollNames.contains(usr.userId))
-				pollUsers.add(usr);
-		
-		
-		findMatchingRes(pollUsers);
-	}
-
-	private static void findMatchingRes(ArrayList<User> pollUsers) {
-		
-		ArrayList<String> matchingResNames = new ArrayList<String>();
-		ArrayList<String> matchingResData = new ArrayList<String>();
-		boolean allMatch = true;
-		
-		for(Restaurant res : allRes){
-			for(User usr: pollUsers){
-				if(!allMatch(usr,res)){
-					allMatch=false;
-				}
-			}
-			if(allMatch){
-				matchingResNames.add(res.resId);
-				matchingResData.add(res.resId + " (grade: "+ res.grade+")");
-			}
-			allMatch=true;
-		}
-		
-		System.out.print("The matching restaurants are: ");
-		System.out.println(Arrays.toString(matchingResData.toArray()));
-		
-		getWinner(matchingResNames, pollUsers.size());
-		
-	}
-
-	private static void getWinner(ArrayList<String> matchingRes, int pollUsersSize) {
-		
-		System.out.println("The winner restaurant is:");
-		String winRes = FirstProject.myScanner.nextLine();
-		
-		if(matchingRes.contains(winRes))
-			updateResGrade(winRes, pollUsersSize);
-		else System.out.println("Not such resturant");
-	}
-
-
-	private static void updateResGrade(String resName,  int pollUsersSize) {
-		
-		for(Restaurant res : allRes){
-			if(res.resId.equals(resName)){
-				res.addToGrade(pollUsersSize);
-				System.out.println("Would you like to "+((res.resType.equals("TA")) ? "order?" : "book a reservation?"));
-			}
-		}
-	}
-
-	private static boolean allMatch(User usr, Restaurant res) {
-		
-		return res.tags[TAGS.ALCH.ordinal()] == usr.tags[TAGS.ALCH.ordinal()] &&
-					res.tags[TAGS.DATE.ordinal()] == usr.tags[TAGS.DATE.ordinal()] &&
-						res.tags[TAGS.AC.ordinal()] == usr.tags[TAGS.AC.ordinal()] &&
-							res.tags[TAGS.SMOKE.ordinal()] == usr.tags[TAGS.SMOKE.ordinal()] &&
-								res.tags[TAGS.VEGAN.ordinal()] == usr.tags[TAGS.VEGAN.ordinal()];
-	}
-
-	public static void printResNames() {
-		
-		System.out.print("Restaurants Names: ");
-		printHelper(allRes.toArray());
-	}
-	
-	public static void printHelper(Object[] list){
-		
-		System.out.print("[");
-		for(int i=0; i<list.length-1; i++){
-			System.out.print(((SystemNode)list[i]).getStringData()+", ");
-		}
-		if(list.length!=0)
-			System.out.print(((SystemNode)list[list.length-1]).getStringData());
-		System.out.println("]");
-		
 	}
 	
 }
