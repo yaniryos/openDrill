@@ -32,11 +32,11 @@ public abstract class Utils {
 	public static void print(Object[] resOrUserArray){
 		
 		Arrays.stream(resOrUserArray).forEach(a -> {
-									if (Arrays.asList(resOrUserArray).indexOf(a)==0)
-										System.out.print("["+((Utils)a).getStringData()+",");
-									else if(Arrays.asList(resOrUserArray).indexOf(a)==resOrUserArray.length-1)
-										System.out.print(((Utils)a).getStringData()+"]");
-									else System.out.print(((Utils)a).getStringData()+",");
+				if (Arrays.asList(resOrUserArray).indexOf(a)==0)
+					System.out.print("["+((Utils)a).getStringData()+",");
+				else if(Arrays.asList(resOrUserArray).indexOf(a)==resOrUserArray.length-1)
+					System.out.print(((Utils)a).getStringData()+"]");
+				else System.out.print(((Utils)a).getStringData()+",");
 		});
 	}
 	
