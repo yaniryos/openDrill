@@ -7,6 +7,7 @@ public class CreatePoll extends Functor{
 	protected static ArrayList<User> pollUsers = new ArrayList<User>();
 	protected static ArrayList<String> matchingResByUser = new ArrayList<String>();
 	protected static ArrayList<String> mathcingResDataByUserToPrint = new ArrayList<String>();
+	protected static Restaurant winningRes;
 	protected static String chosenRes;
 	
 	public void execute(){
@@ -31,14 +32,6 @@ public class CreatePoll extends Functor{
 		System.out.print("Enter the participants in the poll (seperate by a comma), available users: ");
 		Utils.print(RestaurantSystem.allUser.toArray());
 		pollNames.addAll(Arrays.asList(MyScanner.scanner.nextLine().split(",")));
-	}
-
-	private static void clearLists() {
-		
-		pollNames = new ArrayList<String>();
-		pollUsers = new ArrayList<User>();
-		matchingResByUser = new ArrayList<String>();
-		mathcingResDataByUserToPrint = new ArrayList<String>();
 	}
 
 	private static void findUsers() {
@@ -83,17 +76,31 @@ public class CreatePoll extends Functor{
 	private static void closePoll() {
 		
 		if (matchingResByUser.contains(chosenRes))
-			addGradeToResAndPrint();
+			addGradeToRes();
 		else System.out.println("No matching resturant");
 	}
 	
-	private static void addGradeToResAndPrint(){
+	private static void addGradeToRes(){
 		
 		for (Restaurant res : RestaurantSystem.allRes){
 			if (res.resId.equals(chosenRes)){
 				res.addToGrade(pollUsers.size());
-				System.out.println("Would you like to "+((res.resType.equals("TA")) ? "order?" : "book a reservation?"));
+				winningRes=res;
+				printFinalQuestion();
 			}
 		}
+	}
+	
+	private static void printFinalQuestion() {
+		
+		System.out.println("Would you like to "+((winningRes.resType.equals("TA")) ? "order?" : "book a reservation?"));
+	}
+
+	private static void clearLists() {
+		
+		pollNames = new ArrayList<String>();
+		pollUsers = new ArrayList<User>();
+		matchingResByUser = new ArrayList<String>();
+		mathcingResDataByUserToPrint = new ArrayList<String>();
 	}
 }
